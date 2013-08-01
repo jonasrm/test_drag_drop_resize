@@ -5,7 +5,8 @@ ArrayList<Modulo> listaQuadrado;
 void setup() {
   size(400,400);
   frameRate(30);
-  smooth();
+  //smooth();
+  noSmooth();
   listaQuadrado = new ArrayList<Modulo>();
   listaQuadrado.add(new Modulo(new PVector(175,175), new PVector(50,50)));
 }
@@ -32,40 +33,37 @@ void mousePressed() {
 class Modulo {
 
   PVector posicao, tamanho;
-  boolean drag, over;
+  boolean drag, over, selected;
   
+  //-------------------------------------------------------
   Modulo(PVector posicao, PVector tamanho) {
     this.posicao = posicao;
     this.tamanho = tamanho;
     this.drag = false;
     this.over = false;
+    this.selected = false;
   }
   
+  //-------------------------------------------------------
   void update() {
-    //
-  }
-  
-  boolean over() {
-    if (mouseX > posicao.x && mouseX < posicao.x+tamanho.x && mouseY > posicao.y && mouseY < posicao.y+tamanho.y) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-  
-  void display() {
-    //rectMode(CENTER);
-    
     if (!mousePressed) {
       drag = false;
       over = false;
+      //selected = false;
     }
     
     if (over()) {
       over = true;
       drag = mousePressed;
+      if (mousePressed) {
+        selected = true;
+      }
     }
+  }
     
+  //-------------------------------------------------------
+  void display() {
+    //rectMode(CENTER);
     strokeWeight(4);
     if (over) {
       if (drag) {
@@ -86,6 +84,30 @@ class Modulo {
     rect(posicao.x, posicao.y, tamanho.x, tamanho.y);
     noStroke();
     noFill();
+    
+    if (selected) {
+      println("FPS: " + frameRate);
+      fill(0);
+      rect(posicao.x-10, posicao.y-10, 5, 5);
+      rect(posicao.x-10, posicao.y+tamanho.y+5, 5, 5);
+      rect(posicao.x+tamanho.x+5, posicao.y-10, 5, 5);
+      rect(posicao.x+tamanho.x+5, posicao.y+tamanho.y+5, 5, 5);
+      //pontos médios
+      rect(posicao.x+(tamanho.x/2)-2.5, posicao.y-10, 5, 5);
+      rect(posicao.x+(tamanho.x/2)-2.5, posicao.y+tamanho.y+5, 5, 5);
+      rect(posicao.x-10, posicao.y+(tamanho.y/2)-2.5, 5, 5);
+      rect(posicao.x+tamanho.x+5, posicao.y+(tamanho.y/2)-2.5, 5, 5);
+      noFill();
+    }
   }
-  
+
+  //-------------------------------------------------------
+  boolean over() {
+    if (mouseX > posicao.x && mouseX < posicao.x+tamanho.x && mouseY > posicao.y && mouseY < posicao.y+tamanho.y) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
 }
