@@ -1,9 +1,12 @@
 //-------------------------------------------------------
 class Modulo extends ModuloBase {
   
+  ModuloBase lu, lc, ld, ru, rc, rd, cu, cd;
+  
   //-------------------------------------------------------
   Modulo(PVector posicao, PVector tamanho, boolean resizable) {
     super(posicao, tamanho, resizable);
+    lu = new ModuloBase(new PVector(posicao.x-10, posicao.y-10), new PVector(5, 5));
   }
 
   //-------------------------------------------------------
@@ -36,12 +39,19 @@ class Modulo extends ModuloBase {
     noFill();
     
     if (selected && resizable) {
-      println("FPS: " + frameRate);
+      //println("FPS: " + frameRate);
       fill(0);
-      ModuloBase lu, lc, ld, ru, rc, rd, cu, cd;
       
-      lu = new ModuloBase(new PVector(posicao.x-10, posicao.y-10), new PVector(5, 5));
+      lu.update();
       lu.display();
+      if (lu.getDrag()) {
+        println("FPS: " + frameRate);
+        //float xoff = mouseX-pmouseX;
+        //float yoff = mouseY-pmouseY;
+        //posicao.x+=xoff;
+        //posicao.y+=yoff;
+        posicao.add(moveOff());
+      }
 
       /*
       rect(posicao.x-10, posicao.y-10, 5, 5);

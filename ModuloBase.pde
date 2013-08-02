@@ -42,6 +42,8 @@ class ModuloBase {
 
   //-------------------------------------------------------
   void display() {
+    fill(0);
+    noStroke();
     rect(posicao.x, posicao.y, tamanho.x, tamanho.y);
   }
 
@@ -53,6 +55,10 @@ class ModuloBase {
       return false;
     }
   }  
+  
+  boolean getDrag() {
+    return drag;
+  }
   
 }
 

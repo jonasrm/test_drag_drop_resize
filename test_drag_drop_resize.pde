@@ -25,7 +25,11 @@ void draw() {
 void mousePressed() {
   if (mouseButton == RIGHT) {
     float r = random(10,50);
-    listaQuadrado.add(new Modulo(new PVector(mouseX,mouseY), new PVector(r,r)));
+    listaQuadrado.add(new Modulo(new PVector(mouseX-r/2,mouseY-r/2), new PVector(r,r)));
   }
+}
+
+PVector moveOff() {
+  return new PVector(mouseX-pmouseX, mouseY-pmouseY);
 }
 
