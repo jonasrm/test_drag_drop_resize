@@ -31,7 +31,7 @@ class ModuloBase {
       over = false;
     }
     
-    if (over()) {
+    if (getOver()) {
       over = true;
       drag = mousePressed;
       if (mousePressed && mouseButton == LEFT) {
@@ -48,7 +48,7 @@ class ModuloBase {
   }
 
   //-------------------------------------------------------
-  boolean over() {
+  boolean getOver() {
     if (mouseX > posicao.x && mouseX < posicao.x+tamanho.x && mouseY > posicao.y && mouseY < posicao.y+tamanho.y) {
       return true;
     } else {
@@ -56,8 +56,29 @@ class ModuloBase {
     }
   }  
   
+  //-------------------------------------------------------
   boolean getDrag() {
     return drag;
+  }
+
+  //-------------------------------------------------------
+  void addPosicao(PVector p) {
+    posicao.add(p);
+  }
+
+  //-------------------------------------------------------
+  void addTamanho(PVector t) {
+    tamanho.add(t);
+  }
+
+  //-------------------------------------------------------
+  void setPosicao(PVector p) {
+    posicao = p;
+  }
+
+  //-------------------------------------------------------
+  void setTamanho(PVector t) {
+    tamanho = t;
   }
   
 }

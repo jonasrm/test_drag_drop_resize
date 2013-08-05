@@ -6,7 +6,11 @@ class Modulo extends ModuloBase {
   //-------------------------------------------------------
   Modulo(PVector posicao, PVector tamanho, boolean resizable) {
     super(posicao, tamanho, resizable);
+    //initialization controls
     lu = new ModuloBase(new PVector(posicao.x-10, posicao.y-10), new PVector(5, 5));
+    ld = new ModuloBase(new PVector(posicao.x-10, posicao.y+tamanho.y+5), new PVector(5, 5));
+    ru = new ModuloBase(new PVector(posicao.x+tamanho.x+5, posicao.y-10), new PVector(5, 5));
+    rd = new ModuloBase(new PVector(posicao.x+tamanho.x+5, posicao.y+tamanho.y+5), new PVector(5, 5));
   }
 
   //-------------------------------------------------------
@@ -22,10 +26,7 @@ class Modulo extends ModuloBase {
       if (drag) {
         stroke(255,0,0);
         fill(255,0,0,100);
-        float xoff = mouseX-pmouseX;
-        float yoff = mouseY-pmouseY;
-        posicao.x+=xoff;
-        posicao.y+=yoff;
+        posicao.add(moveOff());
       } else {
         stroke(150,0,0);
         fill(0,20);
@@ -39,25 +40,45 @@ class Modulo extends ModuloBase {
     noFill();
     
     if (selected && resizable) {
-      //println("FPS: " + frameRate);
-      fill(0);
-      
+      fill(0);      
+      //left and up
       lu.update();
       lu.display();
       if (lu.getDrag()) {
-        println("FPS: " + frameRate);
-        //float xoff = mouseX-pmouseX;
-        //float yoff = mouseY-pmouseY;
-        //posicao.x+=xoff;
-        //posicao.y+=yoff;
+        drag = false;
+        tamanho.add(moveOffInverted());
         posicao.add(moveOff());
       }
+      //left and down
+      ld.update();
+      ld.display();
+      if (ld.getDrag()) {
+        drag = false;
+        tamanho.add(moveOffXInverted());
+        posicao.x += moveOff().x;
+      }
+      //right and up
+      ru.update();
+      ru.display();
+      if (ru.getDrag()) {
+        drag = false;
+        tamanho.add(moveOffYInverted());
+        posicao.y += moveOff().y;
+      }
+      //right and down
+      rd.update();
+      rd.display();
+      if (rd.getDrag()) {
+        drag = false;
+        tamanho.add(moveOff());
+      }
+
+      lu.setPosicao(new PVector(posicao.x-10, posicao.y-10));
+      ld.setPosicao(new PVector(posicao.x-10, posicao.y+tamanho.y+5));
+      ru.setPosicao(new PVector(posicao.x+tamanho.x+5, posicao.y-10));
+      rd.setPosicao(new PVector(posicao.x+tamanho.x+5, posicao.y+tamanho.y+5));
 
       /*
-      rect(posicao.x-10, posicao.y-10, 5, 5);
-      rect(posicao.x-10, posicao.y+tamanho.y+5, 5, 5);
-      rect(posicao.x+tamanho.x+5, posicao.y-10, 5, 5);
-      rect(posicao.x+tamanho.x+5, posicao.y+tamanho.y+5, 5, 5);
       //pontos médios
       rect(posicao.x+(tamanho.x/2)-2.5, posicao.y-10, 5, 5);
       rect(posicao.x+(tamanho.x/2)-2.5, posicao.y+tamanho.y+5, 5, 5);

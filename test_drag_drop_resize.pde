@@ -29,7 +29,25 @@ void mousePressed() {
   }
 }
 
+//-------------------------------------------------------
 PVector moveOff() {
   return new PVector(mouseX-pmouseX, mouseY-pmouseY);
+}
+
+//-------------------------------------------------------
+PVector moveOffInverted() {
+  PVector p = new PVector(mouseX-pmouseX, mouseY-pmouseY);
+  p.mult(-1);
+  return p;
+}
+
+//-------------------------------------------------------
+PVector moveOffXInverted() {
+  return new PVector((mouseX-pmouseX)*-1, mouseY-pmouseY);
+}
+
+//-------------------------------------------------------
+PVector moveOffYInverted() {
+  return new PVector(mouseX-pmouseX, (mouseY-pmouseY)*-1);
 }
 
