@@ -11,6 +11,11 @@ class Modulo extends ModuloBase {
     ld = new ModuloBase(new PVector(posicao.x-10, posicao.y+tamanho.y+5), new PVector(5, 5));
     ru = new ModuloBase(new PVector(posicao.x+tamanho.x+5, posicao.y-10), new PVector(5, 5));
     rd = new ModuloBase(new PVector(posicao.x+tamanho.x+5, posicao.y+tamanho.y+5), new PVector(5, 5));
+    /**/
+    cu = new ModuloBase(new PVector(posicao.x+(tamanho.x/2)-2.5, posicao.y-10), new PVector(5, 5));
+    cd = new ModuloBase(new PVector(posicao.x+(tamanho.x/2)-2.5, posicao.y+tamanho.y+5), new PVector(5, 5));
+    lc = new ModuloBase(new PVector(posicao.x-10, posicao.y+(tamanho.y/2)-2.5), new PVector(5, 5));
+    rc = new ModuloBase(new PVector(posicao.x+tamanho.x+5, posicao.y+(tamanho.y/2)-2.5), new PVector(5, 5));
   }
 
   //-------------------------------------------------------
@@ -72,19 +77,47 @@ class Modulo extends ModuloBase {
         drag = false;
         tamanho.add(moveOff());
       }
+      //center and up
+      cu.update();
+      cu.display();
+      if (cu.getDrag()) {
+        drag = false;
+        tamanho.y -= moveOff().y;
+        posicao.y += moveOff().y;
+      }
+      //center and down
+      cd.update();
+      cd.display();
+      if (cd.getDrag()) {
+        drag = false;
+        tamanho.y += moveOff().y;
+      }
+      //left and center
+      lc.update();
+      lc.display();
+      if (lc.getDrag()) {
+        drag = false;
+        tamanho.x -= moveOff().x;
+        posicao.x += moveOff().x;
+      }
+      //right and center
+      rc.update();
+      rc.display();
+      if (rc.getDrag()) {
+        drag = false;
+        tamanho.x += moveOff().x;
+      }
 
       lu.setPosicao(new PVector(posicao.x-10, posicao.y-10));
       ld.setPosicao(new PVector(posicao.x-10, posicao.y+tamanho.y+5));
       ru.setPosicao(new PVector(posicao.x+tamanho.x+5, posicao.y-10));
       rd.setPosicao(new PVector(posicao.x+tamanho.x+5, posicao.y+tamanho.y+5));
-
-      /*
-      //pontos médios
-      rect(posicao.x+(tamanho.x/2)-2.5, posicao.y-10, 5, 5);
-      rect(posicao.x+(tamanho.x/2)-2.5, posicao.y+tamanho.y+5, 5, 5);
-      rect(posicao.x-10, posicao.y+(tamanho.y/2)-2.5, 5, 5);
-      rect(posicao.x+tamanho.x+5, posicao.y+(tamanho.y/2)-2.5, 5, 5);
-      */
+      /**/
+      cu.setPosicao(new PVector(posicao.x+(tamanho.x/2)-2.5, posicao.y-10));
+      cd.setPosicao(new PVector(posicao.x+(tamanho.x/2)-2.5, posicao.y+tamanho.y+5));
+      lc.setPosicao(new PVector(posicao.x-10, posicao.y+(tamanho.y/2)-2.5));
+      rc.setPosicao(new PVector(posicao.x+tamanho.x+5, posicao.y+(tamanho.y/2)-2.5));
+      
       noFill();
     }
   }
